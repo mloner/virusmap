@@ -1,0 +1,6 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<tr th:each="coord : ${coords}">
+    <td th:text="${coord.latlng}"></td>
+    <td th:text="${coord.createTime}"></td><br>
+</tr>
+</html>
