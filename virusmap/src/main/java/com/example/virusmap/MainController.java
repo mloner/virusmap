@@ -38,7 +38,7 @@ public class MainController {
     public String allCoords(Map<String, Object> model){
         Iterable<Coord> coords = coordRepo.findAll();
         model.put("coords", coords);
-        return "main";
+        return "coords";
     }
 /*
 //    @RequestMapping("api/allcoords_ajax")
@@ -54,23 +54,23 @@ public class MainController {
     */
 
     @GetMapping("api/allcoords2")
-    public String allCoords2(Map<String, Object> model){
+    public String allCoordsFormated(Map<String, Object> model){
         Iterable<Coord> coords = coordRepo.findAll(Sort.by(Sort.Direction.DESC, "createTime"));
         model.put("coords", coords);
-        return "main2";
+        return "coordsFormated";
     }
 
-    @GetMapping("api/addCoord")
-    public String addCoord(
-    		@RequestParam(name="latlng",
-    				      required=false,
-    					  defaultValue="48.00000000000000;44.00000000000000")
-    		String latlng,Map<String, Object> model){
-        LocalDateTime today = LocalDateTime.now();
-        Coord coord = new Coord(latlng, today);
-        coordRepo.save(coord);
-        return "success";
-    }
+//    @GetMapping("api/addCoord")
+//    public String addCoord(
+//    		@RequestParam(name="latlng",
+//    				      required=false,
+//    					  defaultValue="48.00000000000000;44.00000000000000")
+//    		String latlng,Map<String, Object> model){
+//        LocalDateTime today = LocalDateTime.now();
+//        Coord coord = new Coord(latlng, today);
+//        coordRepo.save(coord);
+//        return "success";
+//    }
 
 
     @GetMapping("map")
@@ -87,8 +87,8 @@ public class MainController {
         return "success";
     }
     
-    @GetMapping("api/addunic")
-    public String deleteDubl(
+    @GetMapping("api/addCoord")
+    public String addCoord(
     		@RequestParam(name="latlng",
     				      required=false,
     					  defaultValue="48.00000000000000;44.00000000000000")

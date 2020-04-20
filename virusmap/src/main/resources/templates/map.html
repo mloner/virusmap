@@ -67,6 +67,7 @@
         $("#id_get_coords").click(function () {
             loadData();
         });
+        
     });
 
 </script>
@@ -104,13 +105,10 @@
         if(heatmap != null){
             heatmap.setMap(null);
         }
-        //alert('init 2');
         heatmap = new google.maps.visualization.HeatmapLayer({
             data: getPoints(),
             map: map
         });
-
-        //alert('init 3');
     }
 
     function toggleHeatmap() {
@@ -149,15 +147,13 @@
 <script th:inline="javascript">
     function getPoints() {
         var result = [];
-        var coords = data_;//[[${coords}]];
+        var coords = data_;
         var arrayLength = coords.length;
         for (var i = 0; i < arrayLength-1; i++) {
-            //alert(coords[i]);
             var arr = coords[i].split(";");
             var tmp = new google.maps.LatLng(arr[0], arr[1]);
             result.push(tmp);
         }
-        //alert(result);
         return result;
     }
 </script>
