@@ -1,7 +1,8 @@
-package com.example.sweater;
+package com.example.virusmap;
 
-import com.example.sweater.domain.Coord;
-import com.example.sweater.repos.CoordRepo;
+import com.example.virusmap.domain.Coord;
+import com.example.virusmap.repos.CoordRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,6 @@ public class MainController {
 
     @Autowired
     private CoordRepo coordRepo;
- 
 //    @PostMapping("filter")
 //    public String filter(@RequestParam String filter, Map<String, Object> model){
 //        Iterable<Message> messages;
@@ -37,13 +37,10 @@ public class MainController {
     @GetMapping("api/allcoords")
     public String allCoords(Map<String, Object> model){
         Iterable<Coord> coords = coordRepo.findAll();
-
         model.put("coords", coords);
-        model.put("kek", "puck");
-
         return "main";
     }
-
+/*
 //    @RequestMapping("api/allcoords_ajax")
 //    @ResponseBody
 //    public String allCoords_ajax(Map<String, Object> model){
@@ -54,14 +51,12 @@ public class MainController {
 //
 //        return "allcoords_ajax";
 //    }
+    */
 
     @GetMapping("api/allcoords2")
     public String allCoords2(Map<String, Object> model){
         Iterable<Coord> coords = coordRepo.findAll(Sort.by(Sort.Direction.DESC, "createTime"));
-
         model.put("coords", coords);
-        model.put("kek", "puck");
-
         return "main2";
     }
 
@@ -92,9 +87,20 @@ public class MainController {
         return "success";
     }
     
-//    @GetMapping("api/deletedublicates")
-//    public String deletedublicates(Map<String, Object> model){
-//        coordRepo.deleteDublicates();
-//        return "success";
+    @GetMapping("api/addunic")
+    public String deleteDubl(
+    		@RequestParam(name="latlng",
+    				      required=false,
+    					  defaultValue="48.00000000000000;44.00000000000000")
+    		String latlng,Map<String, Object> model){
+        LocalDateTime today = LocalDateTime.now();
+        long n = coordRepo.deleteByLatlng(latlng);
+        Coord coord = new Coord(latlng, today);  
+        coordRepo.save(coord);
+        return "success";
     }
 }
+
+
+
+

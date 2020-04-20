@@ -1,4 +1,4 @@
-package com.example.sweater.domain;
+package com.example.virusmap.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
